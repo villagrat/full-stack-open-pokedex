@@ -48,7 +48,7 @@ jobs:
         with:
           severity: info
           text: A new version of Pokedex deployed
-          description: to https://villagrat-pokedex-cicd.fly.dev/ by ${{ github.event.commits[0].author }}
+          description: to https://villagrat-pokedex-cicd.fly.dev/ by ${{ github.event.commits[0].author.username }}
           footer: "Severity: Informational"
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Post deployment failure notification
@@ -59,7 +59,7 @@ jobs:
           # include failing commit URL
           # github.event.commits[0].url
           text: Build failed
-          description: commit ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].author }} broke the build :(
+          description: commit ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].author.username }} broke the build :(
           footer: "Severity: Error"
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
   tag_release:
