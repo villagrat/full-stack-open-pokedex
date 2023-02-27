@@ -43,8 +43,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Post deployment success notification
+        if: success()
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ success() }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           severity: info
           text: A new version of Pokedex deployed
@@ -52,12 +54,12 @@ jobs:
           footer: "Severity: Informational"
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
       - name: Post deployment failure notification
+        if: failure()
         uses: rjstone/discord-webhook-notify@v1
-        if: ${{ failure() }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           severity: error
-          # include failing commit URL
-          # github.event.commits[0].url
           text: Build failed
           description: commit ${{ github.event.commits[0].url }} by ${{ github.event.commits[0].author.username }} broke the build :(
           footer: "Severity: Error"
