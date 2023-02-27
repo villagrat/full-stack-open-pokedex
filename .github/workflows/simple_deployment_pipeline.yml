@@ -31,11 +31,11 @@ jobs:
       - name: joined commit messages
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        run: echo "join($COMMIT_MESSAGES)"
+        run: echo "join('$COMMIT_MESSAGES')"
       - name: this should not run if skip is on commit message
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        if: "!contains(join($COMMIT_MESSAGES), '#skip')"
+        if: "!contains(join('$COMMIT_MESSAGES'), '#skip')"
         run: echo "this step shouldnt run"
   # simple_deployment_pipeline:
   #   runs-on: ubuntu-20.04
