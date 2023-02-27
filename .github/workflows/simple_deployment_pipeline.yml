@@ -1,5 +1,6 @@
 name: Simple deployment pipeline
 
+
 on:
   push:
     branches:
