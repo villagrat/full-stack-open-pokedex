@@ -1,9 +1,8 @@
 name: Periodic App Health Check
 
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   health_check:
