@@ -28,6 +28,9 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: this should not run if skip is on commit message
+        if: ${{ !contains(toJson(github.event.commits.*.message, '#skip')) }}
+        run: echo 'THIS STEP SHOULD NOT BE EXECUTED'
   # simple_deployment_pipeline:
   #   runs-on: ubuntu-20.04
   #   steps:
